@@ -28,6 +28,7 @@ import Tables.LadyBugData;
 import Tables.user;
 
 public class JTablePanel extends JPanel {
+	private LogInPanel login;
 	private JPanel topPanel;
 	private JTable table;
 	private JScrollPane scrollPane;
@@ -55,31 +56,42 @@ public class JTablePanel extends JPanel {
 	private final int priorityNo = 3;
 
 	// Constructor
-	public JTablePanel() {
+	public JTablePanel(LogInPanel login) {
+		this.login = login;
 		userInputStr = "DETAIL";
 		userInputInt = 99;
 		userJTablePanel();
 	}
 
-	public JTablePanel(int input) {
-		userInputInt = input;
-		switch (input) {
-		case 0: // User
-			userInputStr = "USER";
-			userJTablePanel();
-			break;
-		case 99: // Ticket detail
-			userInputStr = "DETAIL";
-			userJTablePanel();
-			break;
-		default: // Status, Role, Priority
-			userInputStr = "ITEMS";
-			statusJTablePanel();
-			break;
-		}
+// not used	
+//	public JTablePanel(int input) {
+//		userInputInt = input;
+//		switch (input) {
+//		case 0: // User
+//			userInputStr = "USER";
+//			userJTablePanel();
+//			break;
+//		case 99: // Ticket detail
+//			userInputStr = "DETAIL";
+//			userJTablePanel();
+//			break;
+//		default: // Status, Role, Priority
+//			userInputStr = "ITEMS";
+//			statusJTablePanel();
+//			break;
+//		}
+//	}
+	
+	public JTablePanel(String input) {
+		handleString(input);
 	}
 
-	public JTablePanel(String input) {
+	public JTablePanel(String input, LogInPanel login) {
+		this.login = login;
+		handleString(input);
+	}
+	
+	private void handleString(String input) {
 		userInputStr = input.toUpperCase();
 		switch (userInputStr) {
 		case "USER":
@@ -103,7 +115,6 @@ public class JTablePanel extends JPanel {
 			userJTablePanel();
 			break;
 		}
-
 	}
 
 	public JScrollPane buildTable() {
@@ -426,12 +437,7 @@ public class JTablePanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			removeAll();
-			JPanel newPanel = new LogInPanel();
-			add(newPanel);
-			revalidate();
-			newPanel.repaint();
-
+			login.BackButton();
 		}
 
 	}

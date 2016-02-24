@@ -7,8 +7,11 @@ import javax.swing.JTabbedPane;
 
 public class JTabbedPanel extends JPanel {
 
-	public JTabbedPanel() {
+	private LogInPanel login;
+
+	public JTabbedPanel(LogInPanel login) {
 		super(new BorderLayout());
+		this.login = login;
 		JTabbedPane tabbedPane = new JTabbedPane();
 
 		JPanel userB = new JPanel();
@@ -26,13 +29,13 @@ public class JTabbedPanel extends JPanel {
 		JPanel priorityB = new JPanel();
 		priorityB.add(createTableB("priority"));
 		tabbedPane.addTab("Priority Table", priorityB);
-		
+
 		// Add tabbedPane to this panel.
 		add(tabbedPane, BorderLayout.CENTER);
 	}
 
 	protected JPanel createTableB(String input) {
-		JPanel pane = new JTablePanel(input);
+		JPanel pane = new JTablePanel(input, login);
 		return pane;
 	}
 }

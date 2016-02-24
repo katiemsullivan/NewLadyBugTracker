@@ -20,6 +20,7 @@ import Tables.LadyBugData;
 // MARY LARSEN 
 public class BugTicketPanel extends JPanel {
 
+	private LogInPanel login;
 	private final int statusNo = 1;
 	private final int roleNo = 2;
 	private final int priorityNo = 3;
@@ -56,7 +57,8 @@ public class BugTicketPanel extends JPanel {
 	JButton back = new JButton("Back");
 	JButton reportB = new JButton("Run Report");
 
-	public BugTicketPanel() {
+	public BugTicketPanel(LogInPanel login) {
+		this.login = login;
 		// change this one later to userid and user after Sophys changes are in
 		userId = new JComboBox(rsList.buildDropDownArray(statusNo));
 		// itemsDropDown = new JComboBox(rsList.buildUserDropDownArray(roleNo));
@@ -119,7 +121,7 @@ public class BugTicketPanel extends JPanel {
 
 			if (e.getSource() == admin) {
 				removeAll();
-				JPanel newPanel = new JTabbedPanel();
+				JPanel newPanel = new JTabbedPanel(login);
 				add(newPanel);
 				revalidate();
 				newPanel.repaint();
@@ -157,12 +159,7 @@ public class BugTicketPanel extends JPanel {
 
 		@Override
 		public void actionPerformed(ActionEvent c) {
-		//	removeAll();
-		//	JPanel newPanel = new LogInPanel();
-		//	add(newPanel);
-		//	revalidate();
-		//	newPanel.repaint();
-			LogInPanel.BackButton();
+			login.BackButton();
 		}
 	}
 
@@ -173,7 +170,7 @@ public class BugTicketPanel extends JPanel {
 
 			// String tempItem = eMailT.getText();
 			removeAll();
-			JPanel newPanel = new JTabbedPanel();
+			JPanel newPanel = new JTabbedPanel(login);
 			add(newPanel);
 			revalidate();
 		}

@@ -27,48 +27,56 @@ public class LogInPanel extends JPanel {
 	private JButton signUpB;
 
 	public LogInPanel() {
-		JPanel panel = new JPanel(new GridLayout(6,0));
-		
+		addAll();
+	}
+	
+	void addAll() {
+		JPanel panel = new JPanel(new GridLayout(6, 0));
+
 		eMailL = new JLabel("Email Address: ");
 		panel.add(eMailL);
-		
+
 		eMailT = new JTextField(50);
 		panel.add(eMailT);
-		
+
 		passwordL = new JLabel("Password: ");
 		panel.add(passwordL);
-		
+
 		passwordT = new JTextField(50);
 		panel.add(passwordT);
-		
+
 		panel.setBorder(new LineBorder(Color.LIGHT_GRAY));
 
-		
 		signInB = new JButton("Sign In");
-		SignInButtonListener a = new SignInButtonListener();
+		SignInButtonListener a = new SignInButtonListener(this);
 		signInB.addActionListener(a);
-		
+
 		signUpB = new JButton("Create an account?");
-		SignUpButtonListener b = new SignUpButtonListener();
+		SignUpButtonListener b = new SignUpButtonListener(this);
 		signUpB.addActionListener(b);
-		
+
 		JPanel bp = new JPanel();
 		bp.add(signInB);
 		bp.add(signUpB);
-		
+
 		add(panel);
 		add(bp);
-
 	}
 
 	class SignInButtonListener implements ActionListener {
+
+		private LogInPanel login;
+
+		public SignInButtonListener(LogInPanel login) {
+			this.login = login;
+		}
 
 		@Override
 		public void actionPerformed(ActionEvent a) {
 
 			String tempItem = eMailT.getText();
 			removeAll();
-			JPanel newPanel = new BugTicketPanel();
+			JPanel newPanel = new BugTicketPanel(login);
 			add(newPanel);
 			revalidate();
 			// newPanel.repaint();
@@ -77,25 +85,29 @@ public class LogInPanel extends JPanel {
 
 	class SignUpButtonListener implements ActionListener {
 
+		private LogInPanel login;
+
+		public SignUpButtonListener(LogInPanel login) {
+			this.login = login;
+		}
+
 		@Override
 		public void actionPerformed(ActionEvent b) {
 
 			String tempItem = eMailT.getText();
 			removeAll();
-			// JPanel newPanel = new JTablePanel(1);
-			JPanel newPanel = new JTabbedPanel();
+			JTabbedPanel newPanel = new JTabbedPanel(login);
 			add(newPanel);
 			revalidate();
 			// newPanel.repaint();
 		}
 	}
-	
-	static void BackButton (){
+
+	public void BackButton() {
 		removeAll();
-		JPanel newPanel = new LogInPanel();
-		add(newPanel);
+		addAll();
 		revalidate();
-		newPanel.repaint();
+		repaint();
 	}
 
 }
